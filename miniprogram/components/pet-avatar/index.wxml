@@ -1,0 +1,6 @@
+<view class="pet-avatar" aria-label="{{petName ? petName + '的头像' : '宠物头像'}}">
+  <image wx:if="{{renderUrl}}" class="pet-avatar-image" src="{{renderUrl}}"
+    mode="aspectFit" data-request="{{request}}" bindload="onImageLoad" binderror="onImageError" />
+  <view wx:if="{{failed}}" class="avatar-state" catchtap="retry">重试</view>
+  <view wx:elif="{{loading}}" class="avatar-state">…</view>
+</view>

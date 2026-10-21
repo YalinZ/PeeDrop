@@ -1,0 +1,38 @@
+# Local identities and WeChat developer-tool preferences
+/project.config.json
+/project.private.config.json
+**/config.local.js
+**/config.local.json
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+service-account*.json
+
+# Dependencies, build outputs, caches and logs
+node_modules/
+miniprogram_npm/
+dist/
+build/
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.codex/
+.agents/
+.publish-check/
+
+# Original artwork and unused quickstart examples
+/asset-source/
+/miniprogram/pages/index/
+/cloudfunctions/quickstartFunctions/
+/uploadCloudFunction.sh
+/scripts/Optimize-NavigationImages.ps1
+/docs/资源体积检查说明.md
+/小程序二维码.jpg

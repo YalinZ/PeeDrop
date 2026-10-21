@@ -1,0 +1,88 @@
+/* 留味儿 · Kawaii Neo-brutalism 统一设计系统 */
+page {
+  --bg-cream: #F9F8F4;
+  --primary-green: #2CB67D;
+  --accent-yellow: #FFC000;
+  --ink: #1A1A1A;
+  --surface-white: #FFFFFF;
+  --pale-green: #DDF5E8;
+  --pale-yellow: #FFF0B3;
+  --muted-ink: #51534B;
+  --border-bold: 4rpx solid var(--ink);
+  --radius-pill: 100rpx;
+  --radius-card: 40rpx;
+  --shadow-hard: 6rpx 6rpx 0 var(--ink);
+  --shadow-pressed: 2rpx 2rpx 0 var(--ink);
+
+  /* 兼容旧类使用的变量，所有阴影均为零模糊硬阴影。 */
+  --lw-primary: var(--primary-green);
+  --lw-primary-pressed: var(--primary-green);
+  --lw-accent: var(--accent-yellow);
+  --lw-ink-green: var(--ink);
+  --lw-primary-soft: var(--pale-green);
+  --lw-primary-line: var(--ink);
+  --lw-bg: var(--bg-cream);
+  --lw-surface: var(--surface-white);
+  --lw-field: var(--surface-white);
+  --lw-text: var(--ink);
+  --lw-muted: var(--muted-ink);
+  --lw-line: var(--ink);
+  --lw-warm: var(--accent-yellow);
+  --lw-earth: var(--ink);
+  --lw-shadow: var(--shadow-hard);
+  --lw-shadow-float: var(--shadow-hard);
+  --lw-radius-card: var(--radius-card);
+  --lw-radius-control: var(--radius-pill);
+  --lw-radius-hand: var(--radius-card);
+  --theme-green: var(--primary-green);
+  --btn-light-green: var(--pale-green);
+  --tab-dark-green: var(--ink);
+  --white: var(--surface-white);
+  --primary: var(--primary-green);
+  --secondary: var(--pale-green);
+  --bg-color: var(--bg-cream);
+  --card-bg: var(--surface-white);
+  --text-main: var(--ink);
+  --text-sub: var(--muted-ink);
+  --shadow-primary: var(--shadow-hard);
+
+  background-color: var(--bg-cream);
+  color: var(--ink);
+  font-size: 30rpx;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC',
+    'Helvetica Neue', STHeiti, 'Microsoft Yahei', Tahoma, Simsun, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+page, view, text, button, image, map, scroll-view, swiper, input, textarea {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+button, input, textarea {
+  border: var(--border-bold);
+  border-radius: var(--radius-pill);
+  color: var(--ink);
+  background: var(--surface-white);
+  font-family: inherit;
+}
+button::after { border: 0; }
+.map-container { width: 100%; height: 100%; }
+.container { display: flex; flex-direction: column; align-items: center; }
+.hand-card, .neo-card {
+  position: relative;
+  background: var(--surface-white);
+  border: var(--border-bold);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-hard);
+}
+.lw-icon-slot { display: inline-block; width: 40rpx; height: 40rpx; flex-shrink: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .p-card, .save-btn, .edit-btn-small, .walk-btn, .locate-btn,
+  .panel-item, .action-panel, .mini-profile-dialog {
+    animation: none;
+    transition: none;
+  }
+}

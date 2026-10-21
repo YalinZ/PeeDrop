@@ -1,0 +1,16 @@
+name: Code and publication checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/setup-local.js
+      - run: node --test tests/*.test.js
+      - run: node scripts/check-media-budget.js
+      - run: node scripts/check-publication.js

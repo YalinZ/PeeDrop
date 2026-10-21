@@ -1,0 +1,133 @@
+<view class="page-root">
+  <!-- ================= 档案编辑态表单 ================= -->
+  <view class="page-container" wx:if="{{isEditing}}">
+
+    <!-- 顶部标题区 -->
+    <view class="header-section">
+      <text class="main-title">本汪的档案</text>
+      <text class="sub-title">填好资料，附近的铲屎官就能认出你</text>
+    </view>
+
+    <!-- 白色主卡片 -->
+    <view class="form-card">
+      <view class="profile-avatar-preview">
+        <pet-avatar src="{{profile.avatarUrl}}" pet-name="{{profile.name}}" />
+      </view>
+
+      <!-- 汪的名字 -->
+      <view class="form-group">
+        <text class="label">汪的名字</text>
+        <input class="custom-input" disabled="{{savingProfile}}" placeholder="你家汪叫什么名儿" placeholder-class="input-placeholder" value="{{profile.name}}" bindinput="onInputName" />
+      </view>
+
+      <view class="form-group">
+        <text class="label">宠物类型</text>
+        <radio-group class="pet-type-group" bindchange="onPetTypeChange">
+          <label class="pet-type-option {{profile.petType === 'dog' ? 'pet-type-option--selected' : ''}}">
+            <radio value="dog" checked="{{profile.petType === 'dog'}}" disabled="{{savingProfile}}" color="#1A1A1A" />狗狗
+          </label>
+          <label class="pet-type-option {{profile.petType === 'cat' ? 'pet-type-option--selected' : ''}}">
+            <radio value="cat" checked="{{profile.petType === 'cat'}}" disabled="{{savingProfile}}" color="#1A1A1A" />猫咪
+          </label>
+        </radio-group>
+      </view>
+
+      <!-- 品种 -->
+      <view class="form-group">
+        <text class="label">品种</text>
+        <input class="custom-input" disabled="{{savingProfile}}" placeholder="如：柯基" placeholder-class="input-placeholder" value="{{profile.breed}}" bindinput="onInputBreed" />
+      </view>
+
+      <!-- 社交属性 (自定义 Radio 样式) -->
+      <view class="form-group">
+        <text class="label">社交属性</text>
+
+        <radio-group bindchange="onPersonalityChange" class="personality-group">
+
+          <!-- i狗 选项 -->
+          <label class="p-card {{profile.personality === 'i' ? 'active-card' : ''}}">
+            <radio value="i" checked="{{profile.personality === 'i'}}" class="hidden-radio" disabled="{{savingProfile}}" />
+            <view class="p-emoji">😌<image wx:if="{{uiImages.poodle}}" class="personality-sticker" src="{{uiImages.poodle}}" data-asset="poodle" binderror="onUIAssetError" mode="aspectFit" aria-hidden="true" /></view>
+            <view class="p-title {{profile.personality === 'i' ? 'active-text' : ''}}">i狗</view>
+            <view class="p-desc">慢热安静，喜欢自己闻闻走走</view>
+            <!-- 选中状态右上角的绿色对勾 -->
+            <view class="check-circle" wx:if="{{profile.personality === 'i'}}">✓</view>
+          </label>
+
+          <!-- e狗 选项 -->
+          <label class="p-card {{profile.personality === 'e' ? 'active-card' : ''}}">
+            <radio value="e" checked="{{profile.personality === 'e'}}" class="hidden-radio" disabled="{{savingProfile}}" />
+            <view class="p-emoji">🤩<image wx:if="{{uiImages.dog}}" class="personality-sticker" src="{{uiImages.dog}}" data-asset="dog" binderror="onUIAssetError" mode="aspectFit" aria-hidden="true" /></view>
+            <view class="p-title {{profile.personality === 'e' ? 'active-text' : ''}}">e狗</view>
+            <view class="p-desc">社牛本狗，见谁都想打招呼</view>
+            <!-- 选中状态右上角的绿色对勾 -->
+            <view class="check-circle" wx:if="{{profile.personality === 'e'}}">✓</view>
+          </label>
+
+        </radio-group>
+      </view>
+
+      <!-- 保存按钮 -->
+      <button class="save-btn" bindtap="saveProfile" disabled="{{savingProfile}}" loading="{{savingProfile}}">保存档案</button>
+    </view>
+  </view>
+
+<!-- 档案展示与排行榜：保留原有功能顺序和绑定。 -->
+  <view class="display-container" wx:else>
+    <view class="header-section">
+      <text class="main-title">我的档案</text>
+      <text class="sub-title">今天，也一起去闻闻世界</text>
+    </view>
+
+    <view class="lb-item my-profile-card hand-card">
+      <image wx:if="{{uiImages.dog}}" class="profile-doodle" src="{{uiImages.dog}}" data-asset="dog" binderror="onUIAssetError" mode="aspectFit" aria-hidden="true" />
+      <image wx:if="{{uiImages.bone}}" class="bone-doodle" src="{{uiImages.bone}}" data-asset="bone" binderror="onUIAssetError" mode="aspectFit" aria-hidden="true" />
+      <view class="avatar-wrap">
+        <pet-avatar class="avatar-image" src="{{profile.avatarUrl}}" pet-name="{{profile.name}}" />
+      </view>
+      <view class="lb-dog-info">
+        <text class="lb-dog-name">{{profile.name || '神秘修狗'}} <text class="me-tag">我</text></text>
+        <text class="lb-dog-breed">{{profile.breed || '未知品种'}}</text>
+      </view>
+      <view class="lb-action">
+        <view class="edit-btn-small" bindtap="editProfile">修改</view>
+      </view>
+    </view>
+
+    <view class="leaderboard-container">
+      <view class="lb-header">
+        <view class="lb-header-left">
+          <image wx:if="{{uiImages.trophy}}" class="leaderboard-trophy" src="{{uiImages.trophy}}" data-asset="trophy" binderror="onUIAssetError" mode="aspectFit" aria-hidden="true" />
+          <text class="lb-main-title">狗狗走路王</text>
+          <text class="lb-sub-title">今日遛狗距离排行榜 · 前 10 名</text>
+        </view>
+        <view class="lb-header-right">每日更新</view>
+      </view>
+
+      <view class="lb-list">
+        <block wx:if="{{leaderboard.length > 0}}">
+          <view class="lb-item hand-card {{index === 0 ? 'lb-item--first' : (index % 2 === 1 ? 'lb-item--even' : '')}}"
+            wx:for="{{leaderboard}}" wx:key="_id">
+            <view class="rank-wrap">
+              <view class="rank-circle {{index === 0 ? 'rank-1' : (index === 1 ? 'rank-2' : (index === 2 ? 'rank-3' : ''))}}">{{index + 1}}</view>
+            </view>
+            <view class="avatar-wrap">
+              <pet-avatar class="avatar-image" src="{{item.avatarUrl}}" pet-name="{{item.name}}" />
+            </view>
+            <view class="lb-dog-info">
+              <text class="lb-dog-name">{{item.name || '神秘修狗'}}</text>
+              <text class="lb-dog-breed">{{item.breed || '散步小伙伴'}}</text>
+            </view>
+            <view class="lb-distance">
+              <text class="dist-num">{{item.displayDistance}}</text>
+            </view>
+          </view>
+        </block>
+        <view class="empty-state hand-card" wx:else>
+          <image wx:if="{{uiImages.cat}}" class="empty-doodle" src="{{uiImages.cat}}" data-asset="cat" binderror="onUIAssetError" mode="aspectFit" aria-hidden="true" />
+          <text>{{leaderboardError || '今天还没有散步记录，带上小伙伴去留个味儿吧'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

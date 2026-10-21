@@ -1,0 +1,45 @@
+{
+  "lazyCodeLoading": "requiredComponents",
+  "pages": [
+    "pages/map/map",
+    "pages/user/user"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#F9F8F4",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "我留的味儿PeeDrop",
+    "backgroundColor": "#F9F8F4"
+  },
+  "requiredPrivateInfos": [
+    "getLocation",
+    "startLocationUpdateBackground",
+    "onLocationChange"
+  ],
+  "requiredBackgroundModes": [
+    "location"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置将用于在地图上展示附近的狗狗与活动标记"
+    },
+    "scope.userLocationBackground": {
+      "desc": "请允许后台获取位置，以保证锁屏时仍能准确记录遛狗轨迹"
+    }
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#6CC062",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/map/map",
+        "text": "地图"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "用户"
+      }
+    ]
+  }
+}

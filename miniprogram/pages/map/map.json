@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "pet-avatar": "/components/pet-avatar/index"
+  },
+  "navigationBarTitleText": "我留的味儿"
+}

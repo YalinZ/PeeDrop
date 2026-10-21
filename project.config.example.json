@@ -1,0 +1,20 @@
+{
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "projectname": "PeeDrop",
+  "appid": "YOUR_MINIPROGRAM_APPID",
+  "compileType": "miniprogram",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true
+  },
+  "packOptions": {
+    "ignore": [
+      { "type": "file", "value": "config.example.js" }
+    ],
+    "include": []
+  }
+}

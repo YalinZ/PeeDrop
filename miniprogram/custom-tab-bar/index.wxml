@@ -1,0 +1,23 @@
+<view class="tab-bar">
+  <button class="tab-item {{selected === 0 ? 'tab-item--selected' : ''}}" data-path="/pages/map/map"
+    bindtap="switchTab" hover-class="tab-item--pressed" aria-label="地图">
+    <image class="tab-icon" mode="aspectFit"
+      src="{{selected === 0 ? '/images/tab_map_active.png' : '/images/tab_map.png'}}" />
+    <text class="tab-text {{selected === 0 ? 'text-green' : ''}}">地图</text>
+  </button>
+
+  <view class="paw-slot">
+    <button class="paw-action" bindtap="onAddMarker" aria-label="打卡留味儿"
+      hover-class="paw-action--pressed" hover-start-time="0" hover-stay-time="180">
+      <image wx:if="{{uiImages.paw}}" class="paw-image" src="{{uiImages.paw}}" data-asset="paw" binderror="onUIAssetError" mode="aspectFit" />
+    </button>
+    <text class="paw-caption">留个味儿</text>
+  </view>
+
+  <button class="tab-item {{selected === 1 ? 'tab-item--selected' : ''}}" data-path="/pages/user/user"
+    bindtap="switchTab" hover-class="tab-item--pressed" aria-label="用户">
+    <image class="tab-icon" mode="aspectFit"
+      src="{{selected === 1 ? '/images/tab_user_active.png' : '/images/tab_user.png'}}" />
+    <text class="tab-text {{selected === 1 ? 'text-green' : ''}}">用户</text>
+  </button>
+</view>

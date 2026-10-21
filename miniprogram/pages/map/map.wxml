@@ -1,0 +1,83 @@
+<!-- 1. 直接让 map 占满全屏，去除所有外层包裹 -->
+<map
+  id="myMap"
+  class="full-map"
+  longitude="{{longitude}}"
+  latitude="{{latitude}}"
+  scale="{{scale}}"
+  markers="{{markers}}"
+  polyline="{{polyline}}"
+  show-location="{{true}}"
+  bindcallouttap="onMarkerTap"
+  bindmarkertap="onMarkerTap"
+  bindregionchange="onRegionChange">
+</map>
+
+<!-- ================= 微型名片弹窗 (保持不变) ================= -->
+<view class="mini-profile-mask" wx:if="{{showMiniProfile}}" bindtap="closeMiniProfile"></view>
+<view class="mini-profile-dialog" wx:if="{{showMiniProfile}}">
+  <view class="dialog-header">
+    <view class="dialog-pet-summary">
+      <view class="map-avatar-wrap">
+        <pet-avatar src="{{currentProfile.avatarUrl}}" pet-name="{{currentProfile.name}}" />
+      </view>
+      <text class="dialog-title">🐶 狗狗名片</text>
+    </view>
+    <text class="close-icon" bindtap="closeMiniProfile">✕</text>
+  </view>
+  <view class="dialog-body">
+    <view class="profile-row">
+      <text class="label">昵称：</text>
+      <text class="value">{{currentProfile.name}}</text>
+    </view>
+    <view class="profile-row">
+      <text class="label">品种：</text>
+      <text class="value">{{currentProfile.breed}}</text>
+    </view>
+    <view class="profile-row">
+      <text class="label">性格：</text>
+      <text class="value">{{currentProfile.personality === 'e' ? '🐕 社牛 e狗' : (currentProfile.personality === 'i' ? '🫣 社恐 i狗' : '未知')}}</text>
+    </view>
+    <view class="marker-message-box" wx:if="{{currentMarkerMessage}}">
+      <text class="quote-mark">“</text>{{currentMarkerMessage}}<text class="quote-mark">”</text>
+    </view>
+  </view>
+</view>
+
+<!-- ================= 右侧悬浮控制按钮组 ================= -->
+<view class="floating-tools">
+  <!-- 定位按钮 -->
+  <view class="locate-btn" bindtap="onLocateTap">📍</view>
+  <!-- 遛狗控制按钮 -->
+  <view class="walk-btn {{isWalking ? 'walking' : ''}}" bindtap="toggleWalk" hover-class="walk-btn--pressed" hover-start-time="0" hover-stay-time="120">
+    <text class="walk-btn-text">{{pendingWalk ? '重试提交' : (isWalking ? '结束遛狗' : '开始遛狗吧')}}</text>
+  </view>
+  <view class="walk-stats-card" wx:if="{{isWalking || pendingWalk}}">
+    <text class="walk-stats-label">已记录</text>
+    <text class="walk-stats-value">{{totalDistance}} 米</text>
+  </view>
+  <view class="walk-track-note" wx:if="{{trackInterrupted}}">轨迹曾中断，中断路段未计入</view>
+</view>
+
+<!-- ================= 打卡操作面板 (保持不变，由底部导航栏加号唤起) ================= -->
+<!-- 遮罩层 -->
+<view class="mask" wx:if="{{showActionPanel}}" bindtap="closePanel"></view>
+
+<!-- 底部操作面板 -->
+<view class="action-panel {{showActionPanel ? 'show' : ''}}">
+  <image wx:if="{{uiImages.bone}}" class="panel-bone" src="{{uiImages.bone}}" data-asset="bone" binderror="onUIAssetError" mode="aspectFit" aria-hidden="true" />
+  <view class="panel-header">选择打卡类型</view>
+  <input class="message-input" placeholder-class="message-placeholder" placeholder="有什么想对附近狗狗说的？(选填)" maxlength="20" bindinput="onInputMessage" value="{{markerMessage}}" />
+
+  <scroll-view class="panel-scroll" scroll-y="true">
+    <block wx:for="{{markerOptions}}" wx:key="category" wx:for-item="category">
+      <view class="category-title">{{category.category}}</view>
+      <view class="panel-grid">
+        <view class="panel-item" wx:for="{{category.items}}" wx:key="type" wx:for-item="item" bindtap="onSelectMarker" data-type="{{item.type}}">
+          <view class="emoji">{{item.icon}}</view>
+          <text class="panel-label">{{item.text}}</text>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+</view>
